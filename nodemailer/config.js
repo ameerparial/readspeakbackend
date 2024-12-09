@@ -1,5 +1,5 @@
-import { createTransport } from "nodemailer";
-import dotenv from "dotenv";
+const { createTransport } = require("nodemailer");
+const dotenv = require("dotenv");
 dotenv.config();
 
 // Create a transporter object using the default SMTP transport
@@ -11,7 +11,7 @@ let transporter = createTransport({
   },
 });
 
-export function sendEmail(options) {
+function sendEmail(options) {
   const mailOptions = {
     ...options,
     from: `"ReadSpeak App" <${process.env.SENDER_EMAIL}>`,
@@ -24,3 +24,6 @@ export function sendEmail(options) {
     console.log("Email Send Successfully");
   });
 }
+module.exports = {
+  sendEmail,
+};

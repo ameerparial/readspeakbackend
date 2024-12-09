@@ -1,7 +1,7 @@
-import sdk from "microsoft-cognitiveservices-speech-sdk";
-import { parseBuffer } from "music-metadata";
+const sdk = require("microsoft-cognitiveservices-speech-sdk");
+const { parseBuffer } = require("music-metadata");
 
-export async function generateAudio(text, shortname) {
+async function generateAudio(text, shortname) {
   console.log("Received the sentence, ");
   console.log(text);
   console.log(shortname);
@@ -50,7 +50,7 @@ export async function generateAudio(text, shortname) {
   });
 }
 
-export async function getAudioDuration(buffer) {
+async function getAudioDuration(buffer) {
   try {
     const metadata = await parseBuffer(buffer, { mimeType: "audio/wav" });
     return metadata.format.duration; // duration is in seconds
@@ -79,7 +79,7 @@ export async function getAudioDuration(buffer) {
 
 // }
 
-export async function getVoices(req, res) {
+async function getVoices(req, res) {
   const speechConfig = sdk.SpeechConfig.fromSubscription(
     process.env.SPEECH_KEY,
     process.env.SPEECH_REGION
@@ -111,3 +111,9 @@ export async function getVoices(req, res) {
 
 // const bufferData = Buffer.from(fileData);
 // return res.send(bufferData);
+
+module.exports = {
+  getVoices,
+  getAudioDuration,
+  generateAudio,
+};

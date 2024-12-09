@@ -1,8 +1,8 @@
-import express from "express";
-import multer from "multer";
+const express = require("express");
+const multer = require("multer");
 
-import fs from "fs";
-import {
+const fs = require("fs");
+const {
   handleDeleteAccount,
   handleGetPDFFiles,
   handlePDFDelete,
@@ -10,16 +10,16 @@ import {
   handleUpdatePassword,
   handleUpdateUsername,
   handleWordMeaning,
-} from "../controllers/user.controller.js";
-import { verifyToken } from "../services/jsonwebtoken.js";
-import { sendUserMessage } from "../nodemailer/email.js";
-import path from "path";
-const __dirname = path.resolve();
+} = require("../controllers/user.controller.js");
+const { verifyToken } = require("../services/jsonwebtoken.js");
+const { sendUserMessage } = require("../nodemailer/email.js");
+const path = require("path");
+const dirname = path.resolve();
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "profiles"));
+    cb(null, path.join(dirname, "profiles"));
   },
   filename: function (req, file, cb) {
     const parts = file.originalname.split(".");
@@ -36,7 +36,7 @@ const uploader = multer({ storage });
 const pdfStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     const userId = verifyToken(req.cookies["token"])._id;
-    const userDir = path.join(__dirname, "profiles", "uploads", userId, "pdfs");
+    const userDir = path.join(dirname, "profiles", "uploads", userId, "pdfs");
     // Create user-specific folder if it doesn't exist
     fs.mkdirSync(userDir, { recursive: true });
     cb(null, userDir);
@@ -88,4 +88,4 @@ router.post("/sendmessage", (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

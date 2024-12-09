@@ -1,6 +1,6 @@
-import { verifyToken } from "../services/jsonwebtoken.js";
+const { verifyToken } = require("../services/jsonwebtoken.js");
 
-export function authMiddleWare(req, res) {
+function authMiddleWare(req, res) {
   try {
     const token = req.cookies["token"];
     if (!token) {
@@ -19,3 +19,6 @@ export function authMiddleWare(req, res) {
     return res.status(400).json({ success: false, message: error.message });
   }
 }
+module.exports = {
+  authMiddleWare,
+};

@@ -1,4 +1,4 @@
-export const VERIFICATION_CODE_EMAIL_TEMPLATE = `<!DOCTYPE html>
+const VERIFICATION_CODE_EMAIL_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -74,7 +74,7 @@ export const VERIFICATION_CODE_EMAIL_TEMPLATE = `<!DOCTYPE html>
             <p>Need help? <a href="mailto:support@readspeak.com">
 `;
 
-export const PASSWORD_RESET_EMAIL_TEMPLATE = `<!DOCTYPE html>
+const PASSWORD_RESET_EMAIL_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -158,7 +158,7 @@ export const PASSWORD_RESET_EMAIL_TEMPLATE = `<!DOCTYPE html>
 </html>
 `;
 
-export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
+const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -232,7 +232,7 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
 </body>
 </html>
 `;
-export const RESET_PASSWORD_DONE_TEMPLATE = `<!DOCTYPE html>
+const RESET_PASSWORD_DONE_TEMPLATE = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -307,7 +307,7 @@ export const RESET_PASSWORD_DONE_TEMPLATE = `<!DOCTYPE html>
 </html>
 `;
 
-export const MESSAGE_FROM_USER = `<!DOCTYPE html>
+const MESSAGE_FROM_USER = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -406,3 +406,11 @@ export const MESSAGE_FROM_USER = `<!DOCTYPE html>
 </body>
 </html>
 `;
+
+module.exports = {
+  VERIFICATION_CODE_EMAIL_TEMPLATE,
+  PASSWORD_RESET_EMAIL_TEMPLATE,
+  WELCOME_EMAIL_TEMPLATE,
+  RESET_PASSWORD_DONE_TEMPLATE,
+  MESSAGE_FROM_USER,
+};

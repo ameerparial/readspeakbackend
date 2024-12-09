@@ -1,13 +1,13 @@
-import { sendEmail } from "./config.js";
-import {
+const { sendEmail } = require("./config.js");
+const {
   MESSAGE_FROM_USER,
   PASSWORD_RESET_EMAIL_TEMPLATE,
   RESET_PASSWORD_DONE_TEMPLATE,
   VERIFICATION_CODE_EMAIL_TEMPLATE,
   WELCOME_EMAIL_TEMPLATE,
-} from "./emailTemplate.js";
+} = require("./emailTemplate.js");
 
-export async function sendVerificationEmail(userEmail, otp) {
+async function sendVerificationEmail(userEmail, otp) {
   console.log("Sender email is : ");
   console.log(process.env.SENDER_EMAIL);
   const mailOptions = {
@@ -20,7 +20,7 @@ export async function sendVerificationEmail(userEmail, otp) {
   sendEmail(mailOptions);
 }
 
-export async function sendWelcomeEmail(userEmail, username) {
+async function sendWelcomeEmail(userEmail, username) {
   console.log("Sender email is : ");
   console.log(process.env.SENDER_EMAIL);
   const mailOptions = {
@@ -33,7 +33,7 @@ export async function sendWelcomeEmail(userEmail, username) {
   sendEmail(mailOptions);
 }
 
-export async function sendResetPasswordEmail(userEmail, token, username) {
+async function sendResetPasswordEmail(userEmail, token, username) {
   const mailOptions = {
     to: userEmail,
     subject: "Reset Password",
@@ -46,7 +46,7 @@ export async function sendResetPasswordEmail(userEmail, token, username) {
   sendEmail(mailOptions);
 }
 
-export async function sendResetPasswordDoneEmail(userEmail, username) {
+async function sendResetPasswordDoneEmail(userEmail, username) {
   console.log("Sender email is : ");
   console.log(process.env.SENDER_EMAIL);
   const mailOptions = {
@@ -59,7 +59,7 @@ export async function sendResetPasswordDoneEmail(userEmail, username) {
   sendEmail(mailOptions);
 }
 
-export async function sendUserMessage(message, userEmail) {
+async function sendUserMessage(message, userEmail) {
   const mailOptions = {
     from: process.env.SENDER_EMAIL,
     to: process.env.SENDER_EMAIL,
@@ -71,3 +71,11 @@ export async function sendUserMessage(message, userEmail) {
   };
   sendEmail(mailOptions);
 }
+
+module.exports = {
+  sendVerificationEmail,
+  sendWelcomeEmail,
+  sendResetPasswordEmail,
+  sendResetPasswordDoneEmail,
+  sendUserMessage,
+};

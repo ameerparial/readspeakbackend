@@ -1,15 +1,14 @@
-import express from "express";
-import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
-import cors from "cors";
+const express = require("express");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
-import { connect } from "./connection/connect.js";
-import authRouter from "./routes/auth.route.js";
-import ttsRouter from "./routes/tts.route.js";
-import userRouter from "./routes/user.route.js";
-import path from "path";
+const { connect } = require("./connection/connect.js");
+const authRouter = require("./routes/auth.route.js");
+const ttsRouter = require("./routes/tts.route.js");
+const userRouter = require("./routes/user.route.js");
+const path = require("path");
 
-const __dirname = path.resolve();
+const dirname = path.resolve();
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -19,16 +18,16 @@ const PORT = process.env.PORT;
 connect();
 
 // Serve static files from the 'public/assets' directory
-app.use("/profiles", express.static(path.join(__dirname, "profiles")));
+app.use("/profiles", express.static(path.join(dirname, "profiles")));
 
 app.use("/api/auth", authRouter);
 app.use("/tts", ttsRouter);
 app.use("/user", userRouter);
 
-app.use(express.static(path.join(__dirname, "front-end", "build")));
+app.use(express.static(path.join(dirname, "front-end", "build")));
 app.get("*", (req, res) => {
   console.log("I am caled");
-  res.sendFile(path.resolve(__dirname, "front-end", "build", "index.html"));
+  res.sendFile(path.resolve(dirname, "front-end", "build", "index.html"));
 });
 
 app.listen(PORT, () => {

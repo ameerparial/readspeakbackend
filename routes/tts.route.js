@@ -1,16 +1,16 @@
-import {
+const {
   generateAudio,
   getAudioDuration,
   getVoices,
-} from "../services/ttsservice.js";
+} = require("../services/ttsservice.js");
 
-import express from "express";
-// import {getAudioDurationInSeconds} from "get-audio-duration";
+const express = require("express");
+// const {getAudioDurationInSeconds} = require( "get-audio-duration");
 const router = express.Router();
 
 router.post("/read-aloud", async (req, res) => {
   try {
-    const { text, shortname } = req.body; // Text chunk sent from frontend (sentence)
+    const { text, shortname } = req.body; // Text chunk sent = require( frontend (sentence))
 
     // Step 1: Generate the audio buffer using Azure TTS SDK
     const { audioBuffer, wordTimings } = await generateAudio(text, shortname);
@@ -31,4 +31,4 @@ router.post("/read-aloud", async (req, res) => {
 
 router.get("/getvoices", getVoices);
 
-export default router;
+module.exports = router;

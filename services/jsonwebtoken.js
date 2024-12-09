@@ -1,10 +1,15 @@
-import jsonWebToken from "jsonwebtoken";
+const jsonWebToken = require("jsonwebtoken");
 const { sign, verify } = jsonWebToken;
 
-export function createToken(userObject) {
+function createToken(userObject) {
   return sign(userObject, process.env.SECRET_KEY);
 }
 
-export function verifyToken(token) {
+function verifyToken(token) {
   return verify(token, process.env.SECRET_KEY);
 }
+
+module.exports = {
+  createToken,
+  verifyToken,
+};

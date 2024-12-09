@@ -1,11 +1,11 @@
-import UserModel from "../models/auth.model.js";
-import { createToken, verifyToken } from "../services/jsonwebtoken.js";
-import bcrypt from "bcryptjs";
-import axios from "axios";
-import fs from "fs";
+const UserModel = require("../models/auth.model.js");
+const { createToken, verifyToken } = require("../services/jsonwebtoken.js");
+const bcrypt = require("bcryptjs");
+const axios = require("axios");
+const fs = require("fs");
 
 const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en";
-export async function handleUpdateUsername(req, res) {
+async function handleUpdateUsername(req, res) {
   const { username } = req.body;
   const image_file = req.file;
 
@@ -39,7 +39,7 @@ export async function handleUpdateUsername(req, res) {
       .json({ success: false, message: "Could not update the profile." });
   }
 }
-export async function handleUpdatePassword(req, res) {
+async function handleUpdatePassword(req, res) {
   try {
     const { newPassword, oldPassword } = req.body;
     const user = verifyToken(req.cookies["token"]);
@@ -69,7 +69,7 @@ export async function handleUpdatePassword(req, res) {
   }
 }
 
-export async function handleDeleteAccount(req, res) {
+async function handleDeleteAccount(req, res) {
   try {
     const _id = verifyToken(req.cookies["token"])._id;
     await UserModel.deleteOne({ _id });
@@ -86,7 +86,7 @@ export async function handleDeleteAccount(req, res) {
   }
 }
 
-export async function handleFavoriteSpeaker(req, res) {
+async function handleFavoriteSpeaker(req, res) {
   try {
     const body = req.body;
 
@@ -96,7 +96,7 @@ export async function handleFavoriteSpeaker(req, res) {
   }
 }
 
-export async function handleWordMeaning(req, res) {
+async function handleWordMeaning(req, res) {
   const wordMeanings = [];
   const { words } = req.body;
   for (let word of words) {
@@ -123,7 +123,7 @@ export async function handleWordMeaning(req, res) {
   res.json(wordMeanings);
 }
 
-export async function handlePDFReadFile(req, res) {
+async function handlePDFReadFile(req, res) {
   try {
     // console.log("save");
     // Add the PDF file to the database:
@@ -151,7 +151,7 @@ export async function handlePDFReadFile(req, res) {
   }
 }
 
-export async function handleGetPDFFiles(req, res) {
+async function handleGetPDFFiles(req, res) {
   try {
     const userID = verifyToken(req.cookies["token"])._id;
     console.log(userID);
@@ -166,7 +166,7 @@ export async function handleGetPDFFiles(req, res) {
   }
 }
 
-export async function handlePDFDelete(req, res) {
+async function handlePDFDelete(req, res) {
   try {
     const fileID = req.params.key;
     const filePath = req.query.filePath;
@@ -179,7 +179,7 @@ export async function handlePDFDelete(req, res) {
     );
 
     if (result.modifiedCount > 0) {
-      //Deleting the file from the folder
+      //Deleting the file = require( the folde)r
       fs.unlink(`./profiles/${filePath}`, (err, res) => {
         if (err) console.log(err.message);
         else console.log("File deleted Successfully.");
@@ -202,6 +202,17 @@ export async function handlePDFDelete(req, res) {
     });
   }
 }
+
+module.exports = {
+  handleUpdateUsername,
+  handleUpdatePassword,
+  handleDeleteAccount,
+  handleFavoriteSpeaker,
+  handleWordMeaning,
+  handlePDFReadFile,
+  handleGetPDFFiles,
+  handlePDFDelete,
+};
 
 // const files = user.readPDFs;
 

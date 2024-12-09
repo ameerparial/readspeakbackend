@@ -1,16 +1,16 @@
-import bcrypt from "bcryptjs";
-import crypto from "crypto";
+const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
-import {
+const {
   sendResetPasswordDoneEmail,
   sendResetPasswordEmail,
   sendVerificationEmail,
   sendWelcomeEmail,
-} from "../nodemailer/email.js";
-import UserModel from "../models/auth.model.js";
-import { createToken } from "../services/jsonwebtoken.js";
+} = require("../nodemailer/email.js");
+const UserModel = require("../models/auth.model.js");
+const { createToken } = require("../services/jsonwebtoken.js");
 
-export async function signup(req, res) {
+async function signup(req, res) {
   const { email, username, password } = req.body;
   try {
     if (!email || !username || !password) {
@@ -49,7 +49,7 @@ export async function signup(req, res) {
   }
 }
 
-export async function login(req, res) {
+async function login(req, res) {
   const { email, password } = req.body;
   try {
     if (!email || !password) {
@@ -78,7 +78,7 @@ export async function login(req, res) {
     return res.status(400).json({ success: false, message: error.message });
   }
 }
-export async function logut(req, res) {
+async function logut(req, res) {
   try {
     res.clearCookie("token");
     return res
@@ -89,8 +89,7 @@ export async function logut(req, res) {
     return res.status(400).json({ success: false, message: error.message });
   }
 }
-
-export async function verifyMe(req, res) {
+async function verifyMe(req, res) {
   const { code } = req.body;
   try {
     const user = await UserModel.findOne({
@@ -118,7 +117,7 @@ export async function verifyMe(req, res) {
   }
 }
 
-export async function forgetPassword(req, res) {
+async function forgetPassword(req, res) {
   const { email } = req.body;
   try {
     const user = await UserModel.findOne({ email });
@@ -141,7 +140,7 @@ export async function forgetPassword(req, res) {
     return res.status(400).json({ success: false, message: error.message });
   }
 }
-export async function resetPassword(req, res) {
+async function resetPassword(req, res) {
   const { token } = req.params;
   const { password } = req.body;
 
@@ -172,3 +171,12 @@ export async function resetPassword(req, res) {
     return res.status(400).json({ success: false, message: error.message });
   }
 }
+
+module.exports = {
+  signup,
+  login,
+  logut,
+  verifyMe,
+  forgetPassword,
+  resetPassword,
+};
