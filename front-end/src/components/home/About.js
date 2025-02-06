@@ -10,32 +10,7 @@ import groupMember2 from "../../assets/group2.jpg";
 import groupMember3 from "../../assets/group3.jpg";
 import { useColor } from "../../store/color.state";
 
-const teamMembers = [
-  {
-    name: "Awais Ahmed",
-    title: "Full Stack Developer",
-    image: groupMember1,
-    github: "github.com",
-    linkedin: faLinkedin,
-    twitter: faTwitter,
-  },
-  {
-    name: "Fareena Noor",
-    title: "Full Stack Developer",
-    image: groupMember2,
-    github: "github.com",
-    linkedin: faLinkedin,
-    twitter: faTwitter,
-  },
-  {
-    name: "Sikandar Ali",
-    title: "Full Stack Developer",
-    image: groupMember3,
-    github: "github.com",
-    linkedin: faLinkedin,
-    twitter: faTwitter,
-  },
-];
+const teamMembers = [];
 
 const Team = () => {
   const { settingOptions } = useColor();
@@ -44,10 +19,7 @@ const Team = () => {
       <div className="container">
         <h2 className={`display-4 text-${settingOptions.color}`}>About us</h2>
         <p className="lead mb-5">
-          We are a group of passionate students in the final stages of our
-          Bachelor’s in Computer Science (BSCS). Our current focus is on our
-          Final Year Project, which integrates the knowledge and hands-on
-          experience we've accumulated throughout our academic career.
+          This is a client project developed to demonstrate my skills.
         </p>
         <div className="row">
           {teamMembers.map((member, index) => (
